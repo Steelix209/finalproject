@@ -29,18 +29,26 @@ class Player(GameSprite):
         super().__init__("dino.png", 200, ground - 75, 75, 75)
         self.speed = 5
         self.hp = 100
+        self.gravity = 0
+        self.ground = True 
 
-
+    
+    
     def update (self):
         keys = key.get_pressed()
-        if keys[K_LEFT] and self.rect. ax > 0:
-            self.rect.x -= self.speed
-        if keys [K_RIGHT] and self.rect.x < WIDTH - self.width:
-            self.rect.x -= self.speed
-        if keys[K_UP] and self.rect.y > 0:
-            self.rect.y -= self.speed
-        if keys[k_DOWM] and self.rect.y <HEIGTH - self.height:
-            self.rect.y += self.speed
+        if keys[K_SPACE]:
+            if self.rect.y>150:
+                self.rect.y += self.jump_speed
+
+                if self.rect.y>150:
+                    self.rect.y -= self.jump_speed
+            if not self.ground:
+                self.gravity += 1
+                self.rect.y += self.gravity
+            if ground < self.rect.y:
+                self.rect.y = ground - 75
+                self.ground = True
+          
 
 
 class Cactus(GameSprite):
@@ -50,7 +58,7 @@ class Cactus(GameSprite):
         self.height = height
     def update (self):
         self.rect.x -= bg_speed
-        if self.rect.x >- 0:
+        if self.rect.x >- 100:
             self.kill()
 run = True
 finish = False
@@ -81,7 +89,17 @@ while run:
         bg1x = WIDTH
     if bg2x <-WIDTH:
         bg2x = WIDTH
-    
+        rand = randint(0, 400)
+        if rand == 99:
+            rand_k = randint(50, 150)
+            y = 100
+            for i in range (rand_k):
+                rand_h = randint(50, 150)
+
+                cactus = Cactus(WIDTH + y, ground, int(rand_h/2), rand_h)
+                cactuses.add(cactus)
+                y += 200
+
     cactuses.update()
     window.blit(bg_image, (bg1x,0))
     window.blit(bg_image2, (bg2x,0))
