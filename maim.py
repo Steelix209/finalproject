@@ -1,5 +1,5 @@
 from pygame import *
-
+from random import* randint
 
 mixer.init()
 font.init()
@@ -14,15 +14,15 @@ clock = time.Clock()
 class GameSprite(sprite.Sprite):
     def __init__(self, image_name, x, y, width, height):
         super().__init__()
-        self.img = transform.scale(image.load(image_name), (width, height))
-        self.rect = self.img.get_rect()
+        self.image = transform.scale(image.load(image_name), (width, height))
+        self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.width = width
         self.height = height
 
     def draw(self):
-        window.blit(self.img, self.rect)
+        window.blit(self.image, self.rect)
 
 class Player(GameSprite):
     def __init__(self):
@@ -58,7 +58,7 @@ class Cactus(GameSprite):
         self.height = height
     def update (self):
         self.rect.x -= bg_speed
-        if self.rect.x >- 100:
+        if self.rect.x < 100:
             self.kill()
 run = True
 finish = False
@@ -89,13 +89,13 @@ while run:
         bg1x = WIDTH
     if bg2x <-WIDTH:
         bg2x = WIDTH
+
         rand = randint(0, 400)
         if rand == 99:
             rand_k = randint(50, 150)
             y = 100
             for i in range (rand_k):
                 rand_h = randint(50, 150)
-
                 cactus = Cactus(WIDTH + y, ground, int(rand_h/2), rand_h)
                 cactuses.add(cactus)
                 y += 200
@@ -106,7 +106,7 @@ while run:
 
     
     player.draw()
-    cactus.draw()
+    cactuses.draw(window)
     
 
     display.update()
