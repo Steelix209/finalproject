@@ -1,5 +1,5 @@
 from pygame import *
-from random import* randint
+from random import randint
 
 mixer.init()
 font.init()
@@ -31,6 +31,7 @@ class Player(GameSprite):
         self.hp = 100
         self.gravity = 0
         self.ground = True 
+        self.jump_speed = 75
 
     
     
@@ -38,10 +39,11 @@ class Player(GameSprite):
         keys = key.get_pressed()
         if keys[K_SPACE]:
             if self.rect.y>150:
-                self.rect.y += self.jump_speed
+                self.rect.y -= self.jump_speed
+                self.ground = False
 
-                if self.rect.y>150:
-                    self.rect.y -= self.jump_speed
+
+               
             if not self.ground:
                 self.gravity += 1
                 self.rect.y += self.gravity
@@ -58,7 +60,7 @@ class Cactus(GameSprite):
         self.height = height
     def update (self):
         self.rect.x -= bg_speed
-        if self.rect.x < 100:
+        if self.rect.x <- 100:
             self.kill()
 run = True
 finish = False
@@ -90,16 +92,16 @@ while run:
     if bg2x <-WIDTH:
         bg2x = WIDTH
 
-        rand = randint(0, 400)
-        if rand == 99:
-            rand_k = randint(50, 150)
-            y = 100
-            for i in range (rand_k):
-                rand_h = randint(50, 150)
-                cactus = Cactus(WIDTH + y, ground, int(rand_h/2), rand_h)
-                cactuses.add(cactus)
-                y += 200
-
+    rand = randint(0, 400)
+    if rand == 99:
+        rand_k = randint(1, 4)
+        y = 100
+        for i in range (rand_k):
+            rand_h = randint(50, 150)
+            cactus = Cactus(WIDTH + y, ground, int(rand_h/2), rand_h)
+            cactuses.add(cactus)
+            y += 200
+    player.update()
     cactuses.update()
     window.blit(bg_image, (bg1x,0))
     window.blit(bg_image2, (bg2x,0))
