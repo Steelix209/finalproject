@@ -32,25 +32,28 @@ class Player(GameSprite):
         self.gravity = 0
         self.ground = True 
         self.jump_speed = 75
-
+        self.k_jump = 0
     
     
     def update (self):
         keys = key.get_pressed()
         if keys[K_SPACE]:
-            if self.rect.y>150:
+            if self.k_jump<= 3:
+                self.k_jump += 1
+                if self.k_jump == 4:
+                    self.k_jump = 0 
                 self.rect.y -= self.jump_speed
                 self.ground = False
 
 
                
-            if not self.ground:
-                self.gravity += 1
-                self.rect.y += self.gravity
-            if ground < self.rect.y:
-                self.rect.y = ground - 75
-                self.ground = True
-          
+        if not self.ground:
+            self.gravity += 1
+            self.rect.y += self.gravity
+        if ground < self.rect.y:
+            self.rect.y = ground - 75
+            self.ground = True
+        
 
 
 class Cactus(GameSprite):
