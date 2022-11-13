@@ -76,7 +76,7 @@ bg2x = WIDTH
 
 bg_image  = transform.scale(image.load("2.jpg"), (WIDTH, HEIGHT))
 bg_image2 = transform.scale(image.load("2.jpg"), (WIDTH, HEIGHT))
-bg_speed = 2
+bg_speed = 4
 player = Player()
 cactus = Cactus(100, 500, 100, 100)
 cactuses = sprite.Group()
